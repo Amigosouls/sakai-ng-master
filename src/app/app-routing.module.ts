@@ -12,6 +12,18 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     { path: '', loadChildren: () => import('./ar360/components/dashboard/dashboard.module').then(m => m.DashboardModule) }
                 ]
             },
+            {
+                path: 'admin', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./ar360/components/admin/admin.module').then(m => m.AdminModule) }
+                ]
+            },
+            {
+                path: 'invoice', component: AppLayoutComponent,
+                children: [
+                    { path: '', loadChildren: () => import('./ar360/components/invoice/invoice.module').then(m => m.InvoiceModule) }
+                ]
+            },
             { path: '', loadChildren: () => import('./ar360/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'notfound', component: NotfoundComponent },
             { path: '**', redirectTo: '/notfound' },

@@ -1,0 +1,16 @@
+{
+    "data":[
+        {
+            "name": "Net 30",
+            "status": true
+        },
+        {
+            "name": "Net 40",
+            "status": true
+        },
+        {
+            "name": "Net 60",
+            "status": false
+        }
+    ]
+}

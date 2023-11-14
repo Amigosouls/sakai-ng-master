@@ -11,11 +11,11 @@ import { EventService } from './ar360/service/event.service';
 import { IconService } from './ar360/service/icon.service';
 import { NodeService } from './ar360/service/node.service';
 import { PhotoService } from './ar360/service/photo.service';
-import { QbConfigComponent } from './ar360/components/qb-config/qb-config.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, QbConfigComponent
+        AppComponent, NotfoundComponent
     ],
     imports: [
         AppRoutingModule,
@@ -24,7 +24,7 @@ import { QbConfigComponent } from './ar360/components/qb-config/qb-config.compon
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService, MessageService
     ],
     bootstrap: [AppComponent]
 })

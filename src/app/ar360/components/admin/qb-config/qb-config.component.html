@@ -1,0 +1,42 @@
+<div
+    class="container max-h-screen flex justify-content-center "
+>
+    <div class="card shadow-5">
+        <h2 class="p-3">QB Configuration</h2>  
+        <div class="flex-row flex flex-grow-1 gap-5 justify-content-evenly ">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username">Email</label>
+                <input pInputText id="username" aria-describedby="username-help" />
+                <small id="username-help">Enter your email to sync to QB</small>
+            </div>            
+            <div class="flex col">
+                <button class="p-button font-bold px-5 py-3 p-button-info p-button-rounded p-button-raised">Update</button>
+            </div>
+            
+        </div>
+        <div class="flex-row flex flex-grow-1 mt-2 gap-5 justify-content-evenly align-items-center ">
+            <div class="flex flex-column gap-2">
+                <label htmlFor="status">Status</label>
+                <input pInputText id="status" aria-describedby="status" value="Connected" />
+            </div>            
+            <div class="flex col">
+                <button class="p-button font-bold px-5 py-3 p-button-info p-button-rounded p-button-raised">Sync Now</button>
+            </div>
+            
+        </div>
+        <div class="flex-row flex flex-grow-1 mt-3   justify-content-evenly align-items-center ">
+            <div class="flex flex-column gap-2">
+                <span>Sync:</span>        
+            </div>            
+            <div class="flex col">
+                <p-inputSwitch ></p-inputSwitch>
+            </div>
+            <div class="flex col">
+                <div class="flex flex-column gap-2">
+                    <label htmlFor="status">Scheduled Sync</label>
+                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                </div>
+            </div>         
+        </div>
+    </div>
+</div>

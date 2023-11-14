@@ -21,12 +21,19 @@ export class AppMenuhorizontalComponent implements OnInit {
           label: 'Settings',
           icon: 'pi pi-fw pi-cog',
           items: [
-              { label: 'QB Config', icon: 'pi pi-fw pi-eye', routerLink: ['/dashboard/qbConfig']},
-              { label: 'Company', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'] },
-              { label: 'Terms', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks']},
-              { label: 'Payment Methods', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks']},
+              { label: 'QB Config', icon: 'pi pi-fw pi-database', routerLink: ['/admin/qbconfig']},
+              { label: 'Company', icon: 'pi pi-fw pi-building', routerLink: ['/admin/company'] },
+              { label: 'Terms', icon: 'pi pi-fw pi-book', routerLink: ['/admin/terms']},
+              { label: 'Payment Methods', icon: 'pi pi-fw pi-money-bill', routerLink: ['/admin/payments']},
           ]
-      }
+      },
+      {
+        label: 'Invoice',
+        icon: 'pi pi-fw pi-file',
+        items: [
+            { label: 'Generate Invoice', icon: 'pi pi-fw pi-clone', routerLink: ['/invoice/generate'] }
+        ]
+    }
       ]
     }
 }

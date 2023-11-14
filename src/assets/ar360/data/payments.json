@@ -1,0 +1,16 @@
+{
+    "data":[
+        {
+            "name": "Credit Card",
+            "status": true
+        },
+        {
+            "name": "Debit Card",
+            "status": true
+        },
+        {
+            "name": "ACH",
+            "status": false
+        }
+    ]
+}

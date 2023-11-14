@@ -1,0 +1,122 @@
+<div class="grid p-fluid justify-content-center">
+    <div class="col-12 md:col-6">
+        <div class="card">
+            <div class="grid lg:col-10 md:col-12 sm:col-12 col-10">
+                <div
+                    class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly"
+                >
+                    <div class="flex mt-2">
+                        <p-toast></p-toast>
+                        <p-fileUpload
+                            class=""
+                            mode="basic"
+                            chooseLabel="Logo"
+                            name="demo[]"
+                            url="https://www.primefaces.org/cdn/api/upload.php"
+                            accept="image/*"
+                            (onUpload)="onUpload($event)"
+                        ></p-fileUpload>
+                    </div>
+                    <div class="flex mt-3">
+                        <textarea
+                            rows="3"
+                            [autoResize]="true"
+                            cols="50"
+                            placeholder="Who is this invoice from? (required)*"
+                            pInputTextarea
+                        ></textarea>
+                    </div>
+                    <div
+                        class="flex flex-row gap-1 lg:gap-3 justify-content-evenly"
+                    >
+                        <div class="flex col-6">
+                            <span class="p-float-label">
+                                <textarea
+                                    id="float-input"
+                                    [autoResize]="false"
+                                    placeholder="Who is this invoice to? (required)"
+                                    rows="2"
+                                    cols="30"
+                                    pInputTextarea
+                                ></textarea>
+                                <label for="float-input">Bill To*</label>
+                            </span>
+                        </div>
+                        <div class="flex col-6">
+                            <span class="p-float-label">
+                                <textarea
+                                    id="float-input"
+                                    [autoResize]="false"
+                                    rows="2"
+                                    cols="30"
+                                    pInputTextarea
+                                ></textarea>
+                                <label for="float-input">Ship To</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="lg:col-5 flex flex-column md:col-5 sm:col-12 justify-content-evenly lg:align-items-end"
+                >
+                    <div class="flex">
+                        <h3>INVOICE</h3>
+                    </div>
+                    <div class="flex">
+                        <span class="p-input-icon-left p-input-icon-right">
+                            <i class="pi pi-hashtag"></i>
+                            <input
+                                type="number"
+                                pInputText
+                                placeholder="Invoivce No"
+                            />
+                        </span>
+                    </div>
+                    <div
+                        class="flex flex-row align-items-center justify-content-start gap-2 mt-6"
+                    >
+                        <div class="flex">
+                            <label for="date">Date</label>
+                        </div>
+                        <div class="flex">
+                            <p-calendar [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-row align-items-center justify-content-start gap-2 mt-2"
+                    >
+                        <div class="flex">
+                            <label for="date">Payment Terms</label>
+                        </div>
+                        <div class="flex">
+                            <input type="text" pInputText />
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-row align-items-center justify-content-start gap-2 mt-2"
+                    >
+                        <div class="flex">
+                            <label for="date">Due Date</label>
+                        </div>
+                        <div class="flex">
+                            <p-calendar [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-row align-items-center justify-content-start gap-2 mt-2"
+                    >
+                        <div class="flex">
+                            <label for="date">PO Number</label>
+                        </div>
+                        <div class="flex">
+                            <input type="Number" pInputText />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid lg:col-2 md:col-2 sm:col-12 col-2">
+                <div class="">hi</div>
+            </div>
+        </div>
+    </div>
+</div>

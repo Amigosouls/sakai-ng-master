@@ -1,0 +1,81 @@
+<div class="grid p-fluid justify-content-center">
+	<div class="col-12 md:col-8">
+		<div class="card shadow-4 " [ngClass]="{'edit':!checked}">
+            <h5 class="p-3">Company Edit/View</h5>
+            <div class="grid justify-content-end">
+                <h6 id="switch2" class="p-2">Edit</h6>
+                <p-inputSwitch ariaLabelledBy="switch2" [(ngModel)]="checked"></p-inputSwitch>
+            </div>
+			<div class="grid formgrid">
+				<div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Legal Company Name</label>
+                        <input value="ABC Health" [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+                <div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Business Name</label>
+                       <input [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+			</div>
+            <div class="grid formgrid mt-2">
+				<div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">EIN</label>
+                        <input type="number" [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+                <div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Business Type</label>
+                        <input pInputText [readOnly]="!checked" id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+			</div>
+            <div class="grid formgrid mt-2">
+				<div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Industry</label>
+                        <input type="text" [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+                <div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Admin Email</label>
+                        <input pInputText type="email" [readOnly]="!checked" id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+			</div>
+            <div class="grid formgrid mt-2">
+				<div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Company phone</label>
+                        <input type="number" [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+                <div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Company Website</label>
+                        <input pInputText [readOnly]="!checked" id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+			</div>
+			<div class="grid formgrid mt-2">
+				<div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">Legal Address</label>
+                        <input type="number" [readOnly]="!checked" pInputText id="username" aria-describedby="username-help"  />
+                    </div>
+				</div>
+                <div class="col-12 mb-2 lg:col-6 md:col-6 sm:col-4 lg:mb-0">
+					<div class="flex flex-column gap-2">
+                        <label htmlFor="username">First Month of Fiscal Year </label>
+                        <p-calendar view="month"  dateFormat="mm" [showIcon]="true" inputId="icon"></p-calendar>
+                    </div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>

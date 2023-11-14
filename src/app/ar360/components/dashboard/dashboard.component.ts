@@ -58,7 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     data: [28, 48, 40, 19, 86, 27, 90],
                     fill: false,
                     backgroundColor: "#DE8F5F",
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
+                    borderColor: "#5EEAD4",
                     tension: .4
                 }
             ]

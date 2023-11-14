@@ -23,7 +23,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Settings',
                 items: [
-                    { label: 'QB Config', icon: 'pi pi-fw pi-eye', routerLink: ['/dashboard/qbConfig'], badge: 'NEW' },
+                    { label: 'QB Config', icon: 'pi pi-fw pi-eye', routerLink: ['/admin/qbConfig'], badge: 'NEW' },
                     { label: 'Company', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },
                     { label: 'Terms', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },
                     { label: 'Payment Methods', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },

@@ -9,6 +9,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
+import { InplaceModule } from 'primeng/inplace';
+import { ChipModule } from 'primeng/chip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,11 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextareaModule,
     InputNumberModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    InplaceModule,
+    ChipModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class InvoiceModule { }

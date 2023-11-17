@@ -1,219 +1,234 @@
 <div class="grid p-fluid justify-content-center">
     <div class="col-12 md:col-10">
-        <div class="card">
-            <div class="grid">
-                <div class="lg:col-10 md:col-12 sm:col-12">
-                    <form action="" [formGroup]="invoiceHeaderForm">
-                        <div class="grid">
-                            <div class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly">
-                                <div class="flex mt-2">
-                                    <p-toast></p-toast>
-                                    <p-fileUpload class="" mode="basic" chooseLabel="Logo"
-                                        name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php"
-                                        accept="image/*" (onUpload)="onUpload($event)"></p-fileUpload>
+        <form action="" [formGroup]="invoiceForm" (ngSubmit)="invoiceForm.valid && onDownload(invoiceForm)">
+            <div class="card">
+                <div class="grid">
+                    <div class="lg:col-10 md:col-12 sm:col-12">
+                        <form action="" [formGroup]="invoiceHeaderForm">
+                            <div class="grid">
+                                <div class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly">
+                                    <div class="flex mt-2">
+                                        <p-toast></p-toast>
+                                        <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload(file)" #file [multiple]="true" accept="image/*">
+                                            <ng-template pTemplate="content">
+                                                <ul *ngIf="uploadedFiles.length">
+                                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                                                </ul>
+                                            </ng-template>
+                                        </p-fileUpload>
+                                    </div>
+                                    <div class="flex mt-3">
+                                        <textarea rows="3" [autoResize]="true" cols="50"
+                                            placeholder="Who is this invoice from?" required
+                                            formControlName="invoiceFrom" pInputTextarea>
+                                        </textarea>
+                                    </div>
+                                    <div class="flex flex-row gap-1 lg:gap-3 justify-content-evenly">
+                                        <div class="flex col-6">
+                                            <span class="p-float-label">
+                                                <textarea id="float-input" [autoResize]="false"
+                                                    placeholder="Who is this invoice to?" required
+                                                    formControlName="billedTo" rows="2" cols="30" pInputTextarea>
+                                                </textarea>
+                                                <label for="float-input">Bill To*</label>
+                                            </span>
+                                        </div>
+                                        <div class="flex col-6">
+                                            <span class="p-float-label">
+                                                <textarea id="float-input" [autoResize]="true" rows="2" cols="30"
+                                                    formControlName="shippedTo" pInputTextarea></textarea>
+                                                <label for="float-input">Ship To</label>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="flex mt-3">
-                                    <textarea rows="3" [autoResize]="true" cols="50"
-                                        placeholder="Who is this invoice from?" required formControlName="invoiceFrom"
-                                        pInputTextarea>
-                                    </textarea>
-                                </div>
-                                <div class="flex flex-row gap-1 lg:gap-3 justify-content-evenly">
-                                    <div class="flex col-6">
-                                        <span class="p-float-label">
-                                            <textarea id="float-input" [autoResize]="false"
-                                                placeholder="Who is this invoice to?" required formControlName="billedTo" rows="2" cols="30"
-                                                pInputTextarea>
-                                            </textarea>
-                                            <label for="float-input">Bill To*</label>
+                                <div
+                                    class="lg:col-5 flex flex-column md:col-5 sm:col-12 justify-content-evenly lg:align-items-end">
+                                    <div class="flex">
+                                        <h3>INVOICE</h3>
+                                    </div>
+                                    <div class="flex">
+                                        <span class="p-input-icon-left p-input-icon-right">
+                                            <i class="pi pi-hashtag"></i>
+                                            <input type="number" formControlName="invoiceNo" required pInputText
+                                                placeholder="Invoivce No*" />
                                         </span>
                                     </div>
-                                    <div class="flex col-6">
-                                        <span class="p-float-label">
-                                            <textarea id="float-input" [autoResize]="true" rows="2" cols="30" formControlName="shippedTo"
-                                                pInputTextarea></textarea>
-                                            <label for="float-input">Ship To</label>
-                                        </span>
+                                    <div class="flex flex-row align-items-center justify-content-start gap-2 mt-6">
+                                        <div class="flex">
+                                            <label for="date">Date</label>
+                                        </div>
+                                        <div class="flex">
+                                            <p-calendar [showIcon]="true" formControlName="invoiceDate"></p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
+                                        <div class="flex">
+                                            <label for="date">Payment Terms</label>
+                                        </div>
+                                        <div class="flex">
+                                            <input type="text" formControlName="paymentTerms" pInputText />
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
+                                        <div class="flex">
+                                            <label for="date">Due Date</label>
+                                        </div>
+                                        <div class="flex">
+                                            <p-calendar [showIcon]="true" formControlName="dueDate"></p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
+                                        <div class="flex">
+                                            <label for="date">PO Number</label>
+                                        </div>
+                                        <div class="flex">
+                                            <input type="Number" pInputText formControlName="poNumber" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                class="lg:col-5 flex flex-column md:col-5 sm:col-12 justify-content-evenly lg:align-items-end">
-                                <div class="flex">
-                                    <h3>INVOICE</h3>
-                                </div>
-                                <div class="flex">
-                                    <span class="p-input-icon-left p-input-icon-right">
-                                        <i class="pi pi-hashtag"></i>
-                                        <input type="number" formControlName="invoiceNo" required pInputText
-                                            placeholder="Invoivce No*" />
-                                    </span>
-                                </div>
-                                <div class="flex flex-row align-items-center justify-content-start gap-2 mt-6">
-                                    <div class="flex">
-                                        <label for="date">Date</label>
-                                    </div>
-                                    <div class="flex">
-                                        <p-calendar [showIcon]="true" formControlName="invoiceDate"></p-calendar>
-                                    </div>
-                                </div>
-                                <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
-                                    <div class="flex">
-                                        <label for="date">Payment Terms</label>
-                                    </div>
-                                    <div class="flex">
-                                        <input type="text" formControlName="paymentTerms" pInputText />
-                                    </div>
-                                </div>
-                                <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
-                                    <div class="flex">
-                                        <label for="date">Due Date</label>
-                                    </div>
-                                    <div class="flex">
-                                        <p-calendar [showIcon]="true" formControlName="dueDate"></p-calendar>
-                                    </div>
-                                </div>
-                                <div class="flex flex-row align-items-center justify-content-start gap-2 mt-2">
-                                    <div class="flex">
-                                        <label for="date">PO Number</label>
-                                    </div>
-                                    <div class="flex">
-                                        <input type="Number" pInputText formControlName="poNumber" />
-                                    </div>
-                                </div>
+                        </form>
+                    </div>
+                    <div class="lg:col-2 md:col-2 sm:col-12">
+                        <div class="flex flex-column">
+                            <div class="flex">
+                                <button pButton pRipple label="Download" class="p-button"></button>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="lg:col-2 md:col-2 sm:col-12">
-                    <div class="flex flex-column">
-                        <div class="flex">
-                            <button pButton pRipple label="Download" class="p-button"></button>
-                        </div>
-                        <div class="flex">
-
+                            <div class="flex"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="grid">
-                <div class="lg:col-10 md:col-12 sm:col-12">
-                    <form [formGroup]="lineItemForm">
-                        <div class="grid bg-gray-900 border-round">
-                            <div class="col-5">
-                                <h6 class="text-white">Description</h6>
-                            </div>
-                            <div class="col-2">
-                                <h6 class="text-white">Quantity</h6>
-                            </div>
-                            <div class="col-2">
-                                <h6 class="text-white">Rate</h6>
-                            </div>
-                            <div class="col-2">
-                                <h6 class="text-white">Amount</h6>
-                            </div>
-                        </div>
-                        <div formArrayName="lineItem">
-                            <div class="grid mt-1" *ngFor="let line of lineItem?.controls; let i=index"
-                                [formGroupName]="i">
+                <div class="grid">
+                    <div class="lg:col-10 md:col-12 sm:col-12">
+                        <form [formGroup]="lineItemForm">
+                            <div class="grid bg-gray-900 border-round">
                                 <div class="col-5">
-                                    <input type="text" formControlName="description" pInputText
-                                        placeholder="Description of the product or service" />
+                                    <h6 class="text-white">Description</h6>
                                 </div>
                                 <div class="col-2">
-                                    <input pInputText type="number" (keyup)="setAmount(i)"  formControlName="quantity">
+                                    <h6 class="text-white">Quantity</h6>
                                 </div>
                                 <div class="col-2">
-                                    <input pInputText type="number" (keyup)="setAmount(i)"  formControlName="rate">
+                                    <h6 class="text-white">Rate</h6>
                                 </div>
                                 <div class="col-2">
-                                    <p-inputNumber formControlName="amount"  mode="decimal" inputId=""
-                                        [minFractionDigits]="2" [readonly]="true"  [useGrouping]="false"></p-inputNumber>
-                                </div>
-                                <div class="col-1">
-                                    <button pButton pRipple icon="pi pi-times" *ngIf="i>0" class="p-button"
-                                        (click)="removeLineItem(i)"></button>
+                                    <h6 class="text-white">Amount</h6>
                                 </div>
                             </div>
-                            <button pButton pRipple label="Line Item" icon="pi pi-plus" class="p-button mr-2 w-10rem"
-                                (click)="addLineItem()"></button>
-                        </div>
-                    </form>
+                            <div formArrayName="lineItem">
+                                <div class="grid mt-1" *ngFor="
+                                        let line of lineItem?.controls;
+                                        let i = index
+                                    " [formGroupName]="i">
+                                    <div class="col-5">
+                                        <input type="text" formControlName="description" pInputText
+                                            placeholder="Description of the product or service" />
+                                    </div>
+                                    <div class="col-2">
+                                        <input pInputText type="number" (keyup)="setAmount(i)"
+                                            formControlName="quantity" />
+                                    </div>
+                                    <div class="col-2">
+                                        <input pInputText type="number" (keyup)="setAmount(i)" formControlName="rate" />
+                                    </div>
+                                    <div class="col-2">
+                                        <p-inputNumber formControlName="amount" mode="decimal" inputId=""
+                                            [minFractionDigits]="2" [readonly]="true"
+                                            [useGrouping]="false"></p-inputNumber>
+                                    </div>
+                                    <div class="col-1">
+                                        <button pButton pRipple icon="pi pi-times" *ngIf="i > 0" class="p-button"
+                                            (click)="removeLineItem(i)"></button>
+                                    </div>
+                                </div>
+                                <button pButton pRipple label="Line Item" icon="pi pi-plus"
+                                    class="p-button mr-2 w-10rem" (click)="addLineItem()"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="lg:col-10 md:col-12 sm:col-12">
+                        <form action="" [formGroup]="invoiceFooterForm">
+                            <div class="grid h-28rem">
+                                <div class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly">
+                                    <div class="flex flex-column mt-2">
+                                        <label for="float-input" class="mb-2">Notes</label>
+                                        <textarea rows="3" [autoResize]="true" cols="50" placeholder="Notes"
+                                            pInputTextarea formControlName="notes"></textarea>
+                                    </div>
+                                    <div class="flex flex-column mt-2">
+                                        <label for="float-input" class="mb-2">Terms</label>
+                                        <textarea rows="3" [autoResize]="true" cols="50" formControlName="terms"
+                                            placeholder="Terms" pInputTextarea></textarea>
+                                    </div>
+                                </div>
+                                <div
+                                    class="lg:col-5 flex flex-column md:col-5 sm:col-12 justify-content-evenly lg:align-items-end">
+                                    <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
+                                        <label for="" class="mr-3">Sub Total:</label>
+                                        <span>
+                                            <p-inputNumber formControlName="subTotal" mode="decimal" inputId=""
+                                                [minFractionDigits]="2" [readonly]="true" [useGrouping]="false">
+                                            </p-inputNumber>
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
+                                        <label for="" class="flex">Tax:</label>
+                                        <span class="flex">
+                                            <input pInputText (keyup)="calculateAmount()" type="number" min="0"
+                                                max="100" formControlName="tax" />
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-column justify-content-evenly align-items-center">
+                                        <p-inplace [closable]="true" class="flex">
+                                            <ng-template pTemplate="display">
+                                                <span><p-chip label="Shipping" icon="pi pi-plus"></p-chip></span>
+                                            </ng-template>
+                                            <ng-template pTemplate="content">
+                                                <input pInputText type="number" (keyup)="calculateAmount()" min="0"
+                                                    max="100" formControlName="shippingCharges" />
+                                            </ng-template>
+                                        </p-inplace>
+                                        <p-inplace [closable]="true" class="flex">
+                                            <ng-template pTemplate="display">
+                                                <span><p-chip label="Discount" icon="pi pi-plus"></p-chip></span>
+                                            </ng-template>
+                                            <ng-template pTemplate="content">
+                                                <input pInputText type="number" (keyup)="calculateAmount()" min="0"
+                                                    max="100" formControlName="discount" />
+                                            </ng-template>
+                                        </p-inplace>
+                                    </div>
+                                    <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
+                                        <label for="" class="mr-3">Total:</label>
+                                        <span>
+                                            <p-inputNumber mode="decimal" inputId="" formControlName="total"
+                                                [minFractionDigits]="2" [useGrouping]="false">
+                                            </p-inputNumber>
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
+                                        <label for="" class="flex">Amount paid</label>
+                                        <span class="flex">
+                                            <input pInputText type="number" min="0" max="100"
+                                                (keyup)="calculateAmount()" formControlName="amountPaid" />
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-row gap-3 justify-content-evenly">
+                                        <label for="" class="mr-3">Balance Due:</label>
+                                        <span><p-inputNumber formControlName="balanceDue" [readonly]="true"
+                                                mode="decimal" inputId="" [minFractionDigits]="2" [useGrouping]="false">
+                                            </p-inputNumber></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="lg:col-10 md:col-12 sm:col-12">
-                    <form action="" [formGroup]="invoiceFooterForm">
-                        <div class="grid h-28rem">
-                            <div class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly">
-                                <div class="flex flex-column mt-2">
-                                    <label for="float-input" class="mb-2">Notes</label>
-                                    <textarea rows="3" [autoResize]="true" cols="50" placeholder="Notes"
-                                        pInputTextarea formControlName="notes"></textarea>
-                                </div>
-                                <div class="flex flex-column mt-2">
-                                    <label for="float-input" class="mb-2">Terms</label>
-                                    <textarea rows="3" [autoResize]="true" cols="50" formControlName="terms" placeholder="Terms"
-                                        pInputTextarea></textarea>
-                                </div>
-                            </div>
-                            <div
-                                class="lg:col-5 flex flex-column md:col-5 sm:col-12 justify-content-evenly lg:align-items-end">
-                                <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
-                                    <label for="" class="mr-3">Sub Total:</label>
-                                    <span>
-                                        <p-inputNumber formControlName="subTotal"  mode="decimal" inputId=""
-                                        [minFractionDigits]="2" [readonly]="true"  [useGrouping]="false"> </p-inputNumber>
-                                    </span>
-                                </div>
-                                <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
-                                    <label for="" class="flex">Tax:</label>
-                                    <span class="flex ">
-                                        <input pInputText (keyup)="calculateAmount()" type="number" min="0" max="100"  formControlName="tax"> 
-                                    </span>
-                                </div>
-                                <div class="flex flex-column justify-content-evenly align-items-center">
-                                    <p-inplace [closable]="true" class="flex">
-                                        <ng-template pTemplate="display">
-                                            <span><p-chip label="Shipping" icon="pi pi-plus"></p-chip></span>
-                                        </ng-template>
-                                        <ng-template pTemplate="content">
-                                            <input pInputText type="number"  (keyup)="calculateAmount()" min="0" max="100"  formControlName="shippingCharges"> 
-                                        </ng-template>
-                                    </p-inplace>
-                                    <p-inplace [closable]="true" class="flex">
-                                        <ng-template pTemplate="display">
-                                            <span><p-chip label="Discount" icon="pi pi-plus"></p-chip></span>
-                                        </ng-template>
-                                        <ng-template pTemplate="content">
-                                            <input pInputText type="number" (keyup)="calculateAmount()" min="0" max="100"  formControlName="discount"> 
-                                        </ng-template>
-                                    </p-inplace>
-                                </div>
-                                <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
-                                    <label for="" class="mr-3">Total:</label>
-                                    <span>
-                                        <p-inputNumber mode="decimal" inputId="" formControlName="total" [minFractionDigits]="2"
-                                            [useGrouping]="false"> 
-                                        </p-inputNumber>
-                                    </span>
-                                </div>
-                                <div class="flex flex-row gap-3 justify-content-evenly align-items-center">
-                                    <label for="" class="flex">Amount paid</label>
-                                    <span class="flex ">
-                                        <input pInputText type="number" min="0" max="100" (keyup)="calculateAmount()"  formControlName="amountPaid"> 
-                                    </span>
-                                </div>
-                                <div class="flex flex-row gap-3 justify-content-evenly">
-                                    <label for="" class="mr-3">Balance Due:</label>
-                                    <span><p-inputNumber formControlName="balanceDue" [readonly]="true" mode="decimal" inputId="" [minFractionDigits]="2"
-                                            [useGrouping]="false"> </p-inputNumber></span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+{{lineItemForm.value | json}}

@@ -14,10 +14,12 @@ import { ChipModule } from 'primeng/chip';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { PostInvoiceGenerationComponent } from './post-invoice-generation/post-invoice-generation.component';
 
 @NgModule({
   declarations: [
-    GenerateInvoiceComponent
+    GenerateInvoiceComponent,
+    PostInvoiceGenerationComponent
   ],
   imports: [
     CommonModule,

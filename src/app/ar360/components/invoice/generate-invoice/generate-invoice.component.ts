@@ -5,6 +5,7 @@ import { UploadEvent } from 'primeng/fileupload';
 import { Toast } from 'primeng/toast';
 import jspdf from 'jspdf'
 import html2canvas from 'html2canvas';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-generate-invoice',
@@ -16,7 +17,9 @@ export class GenerateInvoiceComponent implements OnInit {
   uploadedFiles: any[] = [];
   y=0;
   visible:boolean=false;
-  constructor(private messageService: MessageService, private fb: FormBuilder) {
+  invoiceCount:number=localStorage.length;
+  storedFormData:any;
+  constructor(private messageService: MessageService, private fb: FormBuilder, private router:Router,private route: ActivatedRoute) {
     
   }
   ngOnInit(): void {
@@ -55,6 +58,11 @@ export class GenerateInvoiceComponent implements OnInit {
           ]
         )
       })
+    });
+    this.invoiceHeaderForm.get('invoiceNo')?.setValue(this.invoiceCount+1);
+    this.route.queryParams.subscribe(params=>{
+      console.log(params);
+      console.log(localStorage.getItem(params['invoice']))
     });
   }
   private newLineItem(): FormGroup {
@@ -115,6 +123,12 @@ export class GenerateInvoiceComponent implements OnInit {
     doc.setFontSize(11);
     doc.text('Invoice No:', 275, 60);
     doc.text(formValue.value.invoiceHeaderForm.invoiceNo.toString(), 350, 60);
+    doc.text('From:', 20, 60);
+    doc.text(formValue.value.invoiceHeaderForm.invoiceFrom.toString(), 80, 60);
+    doc.text('Billed To:', 20, 90);
+    doc.text(formValue.value.invoiceHeaderForm.billedTo.toString(), 80, 90);
+    doc.text('Shipped To:', 20, 120);
+    doc.text(formValue.value.invoiceHeaderForm.shippedTo.toString(), 80, 120);
     doc.text('Generated On:', 275, 70);
     doc.text(new Date(formValue.value.invoiceHeaderForm.invoiceDate).toLocaleDateString().toString(), 350, 70);
     doc.text('Payment Terms:', 275, 80);
@@ -126,10 +140,10 @@ export class GenerateInvoiceComponent implements OnInit {
     doc.setFillColor('black');
     doc.rect(0, 200, 595, 15, 'F');
     doc.setTextColor('white');
-    doc.text('Description', 10, 208);
-    doc.text('Quantity', 270, 208);
-    doc.text('Rate', 350, 208);
-    doc.text('Amount', 400, 208);
+    doc.text('Description:', 10, 208);
+    doc.text('Quantity:', 270, 208);
+    doc.text('Rate:', 350, 208);
+    doc.text('Amount:', 400, 208);
     doc.setTextColor('black');
     if (this.lineItemForm.valid) {
       this.y=215;
@@ -149,17 +163,28 @@ export class GenerateInvoiceComponent implements OnInit {
       }
       this.y=height;
     }
+    doc.line(280,290,280,430);
+    doc.text('Notes:',20,300);
+    doc.text(formValue.value.invoiceFooterForm.notes.toString(), 50, 300);
+    doc.text('Terms:',20,350);
+    doc.text(formValue.value.invoiceFooterForm.terms.toString(), 50, 350);
     doc.text('SubTotal:',300,300);
     doc.text(formValue.value.invoiceFooterForm.subTotal.toString(), 370, 300);
     doc.text('Tax:',300,320);
-    doc.text(`+${formValue.value.invoiceFooterForm.tax.toString()}%`, 370, 320);
+    doc.text(`+${formValue.value.invoiceFooterForm.tax.toString()==""? 'NIL':formValue.value.invoiceFooterForm.tax.toString()}$`, 370, 320);
     doc.text('Shipping:',300,340);
-    doc.text(`+${formValue.value.invoiceFooterForm.shippingCharges.toString()}$`, 370, 340);
+    doc.text(`+${formValue.value.invoiceFooterForm.shippingCharges.toString()==""? 'NIL':formValue.value.invoiceFooterForm.shippingCharges.toString()}$`, 370, 340);
     doc.text('Discount:',300,360);
-    doc.text(`-${formValue.value.invoiceFooterForm.discount.toString()}%`, 370, 360);
+    doc.text(`-${formValue.value.invoiceFooterForm.discount.toString()==""? 'NIL':formValue.value.invoiceFooterForm.discount.toString()}$`, 370, 360);
     doc.text('Total:',300,380);
-    doc.text(`${formValue.value.invoiceFooterForm.total.toString()}$`, 370, 380);
+    doc.text(`${formValue.value.invoiceFooterForm.total.toString()==""? 'NIL':formValue.value.invoiceFooterForm.total.toString()}$`, 370, 380);
+    doc.text('Amount Paid:',300,400);
+    doc.text(`-${formValue.value.invoiceFooterForm.amountPaid.toString()==""? 'NIL':formValue.value.invoiceFooterForm.amountPaid.toString()}$`, 370, 400);
+    doc.text('Balance Due:',300,420);
+    doc.text(`${formValue.value.invoiceFooterForm.balanceDue.toString()}$`, 370, 420);
     doc.save('document.pdf');
+    localStorage.setItem(`invoice-${this.invoiceCount+1}`,JSON.stringify(this.invoiceForm.value));
+    this.router.navigate([`/invoice/post-generate/invoice-${this.invoiceCount+1}`]);
   };
 
 

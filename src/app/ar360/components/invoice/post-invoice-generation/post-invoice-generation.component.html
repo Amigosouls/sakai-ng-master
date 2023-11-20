@@ -1,0 +1,21 @@
+<div class="grid p-fluid justify-content-center">
+    <div class="col-12 md:col-10">
+            <div class="card">
+                <h3>Thank You for invoicing with us!</h3>
+                <div class="flex bg-green-200 p-2 m-2 text-xl">
+                    <p>Your invoice has been generated! If the invoice did not open automatically then you can find it in your Downloads folder.</p>
+                </div>
+                <div class="flex mt-5 font-medium text-xl">
+                    A copy has also been saved to your device. You can return to the History page any time to make changes to your invoice. It is strongly recommended that you retain a copy of the generated PDF for your records.
+                </div>
+                <div class="mt-5 font-medium text-xl">
+                    <h3>What's next?</h3>
+                    <div class="flex flex-row justify-content-start gap-2">
+                        <button pButton para pRipple type="button" (click)="editInvoice()" label="Edit Invoice" icon="pi pi-arrow-left"  class="p-button w-10rem"></button>
+                        <button pButton para pRipple type="button" label="Go to History" icon="pi pi-arrow-left"  class="p-button w-10rem"></button>
+                        <button pButton para pRipple type="button" (click)="editInvoice()" label="Edit Invoice" icon="pi pi-arrow-left"  class="p-button w-10rem"></button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

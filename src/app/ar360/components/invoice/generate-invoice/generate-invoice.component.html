@@ -6,11 +6,11 @@
                     <div class="lg:col-10 md:col-12 sm:col-12">
                         <form action="" [formGroup]="invoiceHeaderForm">
                             <div class="grid">
-                                <div class="lg:col-7 flex flex-column md:col-7 sm:col-12 justify-content-evenly">
+                                <div class="lg:col-7 flex flex-column md:mt-2 sm:col-12 justify-content-evenly">
                                     <div class="flex mt-2">
                                         <p-toast></p-toast>
                                         <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload(file)" #file [multiple]="true" accept="image/*">
-                                            <ng-template pTemplate="content">
+                                            <ng-template pTemplate="content" class="md:mt-2">
                                                 <ul *ngIf="uploadedFiles.length">
                                                     <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
                                                 </ul>
@@ -95,7 +95,9 @@
                             <div class="flex">
                                 <button pButton pRipple type="button" label="Download" (click)="showDownloadDialog()" [disabled]="!invoiceHeaderForm.valid" class="p-button"></button>
                             </div>
-                            <div class="flex"></div>
+                            <div class="flex mt-3 border-top-1 p-2">
+                                <h5>History</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -233,10 +235,10 @@
                 <p-dialog header="Download" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
                     <div class="flex flex-row justify-content-evenly align-items-center">
                         <div class="flex">
-                            <p-button   label="Download" class="p-button-lg " ></p-button>
+                            <p-button icon="pi pi-file-pdf" label="PDF" type="submit" (onClick)="visible=false" class="p-button-lg " ></p-button>
                         </div>
                         <div class="flex">
-                            hello
+                            <p-button icon="pi pi-file" label="E-Invoice" type="submit" (onClick)="visible=false" class="p-button-lg " ></p-button>
                         </div>
                     </div>
                 </p-dialog>

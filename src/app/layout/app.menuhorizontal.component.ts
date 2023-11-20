@@ -31,7 +31,7 @@ export class AppMenuhorizontalComponent implements OnInit {
         label: 'Invoice',
         icon: 'pi pi-fw pi-file',
         items: [
-            { label: 'Generate Invoice', icon: 'pi pi-fw pi-clone', routerLink: ['/invoice/generate'] }
+            { label: 'Generate Invoice', icon: 'pi pi-fw pi-clone', routerLink: ['/invoice/generate'] },
         ]
     }
       ]

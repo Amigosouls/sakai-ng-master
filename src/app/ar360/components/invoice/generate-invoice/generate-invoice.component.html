@@ -93,7 +93,7 @@
                     <div class="lg:col-2 md:col-2 sm:col-12">
                         <div class="flex flex-column">
                             <div class="flex">
-                                <button pButton pRipple label="Download" class="p-button"></button>
+                                <button pButton pRipple type="button" label="Download" (click)="showDownloadDialog()" [disabled]="!invoiceHeaderForm.valid" class="p-button"></button>
                             </div>
                             <div class="flex"></div>
                         </div>
@@ -228,7 +228,22 @@
                     </div>
                 </div>
             </div>
+            <div class="card flex justify-content-center">
+    
+                <p-dialog header="Download" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+                    <div class="flex flex-row justify-content-evenly align-items-center">
+                        <div class="flex">
+                            <p-button   label="Download" class="p-button-lg " ></p-button>
+                        </div>
+                        <div class="flex">
+                            hello
+                        </div>
+                    </div>
+                </p-dialog>
+            </div>
         </form>
     </div>
 </div>
+
+
 {{lineItemForm.value | json}}

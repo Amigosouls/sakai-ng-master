@@ -15,6 +15,7 @@ export class GenerateInvoiceComponent implements OnInit {
   invoiceForm!: FormGroup;
   uploadedFiles: any[] = [];
   y=0;
+  visible:boolean=false;
   constructor(private messageService: MessageService, private fb: FormBuilder) {
     
   }
@@ -100,6 +101,8 @@ export class GenerateInvoiceComponent implements OnInit {
       total = total + amount.value.amount
     }
     this.invoiceFooterForm.get('subTotal')?.setValue(total);
+    this.invoiceFooterForm.get('total')?.setValue(total);
+      this.invoiceFooterForm.get('balanceDue')?.setValue(total);
     this.calculateAmount();
   }
 
@@ -121,12 +124,12 @@ export class GenerateInvoiceComponent implements OnInit {
     doc.text('PO Number:', 275, 100);
     doc.text(formValue.value.invoiceHeaderForm.poNumber.toString(), 350, 100);
     doc.setFillColor('black');
-    doc.rect(0, 300, 595, 15, 'F');
+    doc.rect(0, 200, 595, 15, 'F');
     doc.setTextColor('white');
-    doc.text('Description', 10, 200);
-    doc.text('Quantity', 280, 200);
-    doc.text('Rate', 360, 200);
-    doc.text('Amount', 410, 200);
+    doc.text('Description', 10, 208);
+    doc.text('Quantity', 270, 208);
+    doc.text('Rate', 350, 208);
+    doc.text('Amount', 400, 208);
     doc.setTextColor('black');
     if (this.lineItemForm.valid) {
       this.y=215;
@@ -134,9 +137,9 @@ export class GenerateInvoiceComponent implements OnInit {
       for (const control of this.lineItem.controls) {
         height=height+10;
         doc.text(control.value.description.toString(), 10, height);
-        doc.text(control.value.quantity.toString(), 280, height);
-        doc.text(control.value.rate.toString(), 360, height);
-        doc.text(control.value.amount.toString(), 410, height);
+        doc.text(control.value.quantity.toString(), 270, height);
+        doc.text(control.value.rate.toString(), 350, height);
+        doc.text(control.value.amount.toString(), 400, height);
         if(height>732){
           doc.addPage();
           height=0;
@@ -146,13 +149,22 @@ export class GenerateInvoiceComponent implements OnInit {
       }
       this.y=height;
     }
-    console.log(this.y);
+    doc.text('SubTotal:',300,300);
+    doc.text(formValue.value.invoiceFooterForm.subTotal.toString(), 370, 300);
+    doc.text('Tax:',300,320);
+    doc.text(`+${formValue.value.invoiceFooterForm.tax.toString()}%`, 370, 320);
+    doc.text('Shipping:',300,340);
+    doc.text(`+${formValue.value.invoiceFooterForm.shippingCharges.toString()}$`, 370, 340);
+    doc.text('Discount:',300,360);
+    doc.text(`-${formValue.value.invoiceFooterForm.discount.toString()}%`, 370, 360);
+    doc.text('Total:',300,380);
+    doc.text(`${formValue.value.invoiceFooterForm.total.toString()}$`, 370, 380);
     doc.save('document.pdf');
   };
 
 
   calculateAmount() {
-    if (this.invoiceFooterForm.get('tax')?.value === "" && this.invoiceFooterForm.get('shippingCharges')?.value === "" && this.invoiceFooterForm.get('discount')?.value === "") {
+    if (this.invoiceFooterForm.get('tax')?.value === "" && this.invoiceFooterForm.get('shippingCharges')?.value === "" && this.invoiceFooterForm.get('discount')?.value === "" &&this.invoiceFooterForm.get('subTotal')?.value === "") {
       this.invoiceFooterForm.get('total')?.setValue(0);
       this.invoiceFooterForm.get('balanceDue')?.setValue(0);
     }
@@ -172,5 +184,9 @@ export class GenerateInvoiceComponent implements OnInit {
         this.invoiceFooterForm.get('balanceDue')?.setValue(this.invoiceFooterForm.get('total')?.value - this.invoiceFooterForm.get('amountPaid')?.value)
       }
     }
+  }
+
+  showDownloadDialog() {
+    this.visible = true;
   }
 }

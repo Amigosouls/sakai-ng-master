@@ -35,17 +35,9 @@ export class TermsPaymentViewComponent implements OnInit {
 
       ngOnInit() {
           this.cols = [
-              { field: 'product', header: 'Product' },
-              { field: 'price', header: 'Price' },
-              { field: 'category', header: 'Category' },
-              { field: 'rating', header: 'Reviews' },
-              { field: 'inventoryStatus', header: 'Status' }
-          ];
-          this.routeName=this.router.snapshot.params['']
-          this.statuses = [
-              { label: 'INSTOCK', value: 'instock' },
-              { label: 'LOWSTOCK', value: 'lowstock' },
-              { label: 'OUTOFSTOCK', value: 'outofstock' }
+              { field: 'name', header: 'Name' },
+              { field: 'status', header: 'Status' },
+              
           ];
       }
   

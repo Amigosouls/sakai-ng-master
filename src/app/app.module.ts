@@ -12,6 +12,7 @@ import { IconService } from './ar360/service/icon.service';
 import { NodeService } from './ar360/service/node.service';
 import { PhotoService } from './ar360/service/photo.service';
 import { MessageService } from 'primeng/api';
+import { InvoiceService } from './ar360/service/invoice.service';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,7 @@ import { MessageService } from 'primeng/api';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, MessageService
+        PhotoService, ProductService, MessageService, InvoiceService
     ],
     bootstrap: [AppComponent]
 })

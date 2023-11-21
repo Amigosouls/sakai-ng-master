@@ -15,11 +15,13 @@ import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/f
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { PostInvoiceGenerationComponent } from './post-invoice-generation/post-invoice-generation.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
     GenerateInvoiceComponent,
-    PostInvoiceGenerationComponent
+    PostInvoiceGenerationComponent,
+    HistoryComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,9 @@ import { PostInvoiceGenerationComponent } from './post-invoice-generation/post-i
     FormsModule,
     ReactiveFormsModule,
     DialogModule,
+    ButtonModule
+  ],
+  exports:[
     ButtonModule
   ]
 })

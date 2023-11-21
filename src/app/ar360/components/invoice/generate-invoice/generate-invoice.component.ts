@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { UploadEvent } from 'primeng/fileupload';
-import { Toast } from 'primeng/toast';
 import jspdf from 'jspdf'
-import html2canvas from 'html2canvas';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InvoiceService } from 'src/app/ar360/service/invoice.service';
 
 @Component({
   selector: 'app-generate-invoice',
@@ -17,9 +15,8 @@ export class GenerateInvoiceComponent implements OnInit {
   uploadedFiles: any[] = [];
   y=0;
   visible:boolean=false;
-  invoiceCount:number=localStorage.length;
   storedFormData:any;
-  constructor(private messageService: MessageService, private fb: FormBuilder, private router:Router,private route: ActivatedRoute) {
+  constructor(private messageService: MessageService, private fb: FormBuilder,private route: ActivatedRoute, private invoiceService:InvoiceService) {
     
   }
   ngOnInit(): void {
@@ -59,10 +56,15 @@ export class GenerateInvoiceComponent implements OnInit {
         )
       })
     });
-    this.invoiceHeaderForm.get('invoiceNo')?.setValue(this.invoiceCount+1);
+    
     this.route.queryParams.subscribe(params=>{
-      console.log(params);
-      console.log(localStorage.getItem(params['invoice']))
+      if(params['invoice']){
+        this.invoiceService.getInvoicesById(params['invoice']).subscribe(
+          (res)=>{
+            this.invoiceForm.patchValue(res);
+          }
+        );
+      }
     });
   }
   private newLineItem(): FormGroup {
@@ -183,8 +185,8 @@ export class GenerateInvoiceComponent implements OnInit {
     doc.text('Balance Due:',300,420);
     doc.text(`${formValue.value.invoiceFooterForm.balanceDue.toString()}$`, 370, 420);
     doc.save('document.pdf');
-    localStorage.setItem(`invoice-${this.invoiceCount+1}`,JSON.stringify(this.invoiceForm.value));
-    this.router.navigate([`/invoice/post-generate/invoice-${this.invoiceCount+1}`]);
+    this.invoiceService.postInvoice(formValue.value);
+    
   };
 
 
@@ -214,4 +216,5 @@ export class GenerateInvoiceComponent implements OnInit {
   showDownloadDialog() {
     this.visible = true;
   }
+  
 }
